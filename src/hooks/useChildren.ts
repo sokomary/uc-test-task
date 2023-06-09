@@ -7,7 +7,7 @@ const useChildren = (
   if (validTypes) {
     Children.map(children, (child) => {
       if (!validTypes.includes(child.type)) {
-        // throw Error(`children should be in [${validTypes.map((t) => t.name)}]`);
+        throw Error(`children should be in [${validTypes.map((t) => t.name)}]`);
       }
     });
   }
