@@ -1,35 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { ImageSlider } from "./components/Slider/ImageSlider";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ImageSlider loop autoPlay>
+      <ImageSlider.Slide src="https://image.isu.pub/200108033723-3ca2097884c8efacf45a0f28f2db9aff/jpg/page_109.jpg" />
+      <ImageSlider.Slide src="https://w7.pngwing.com/pngs/31/751/png-transparent-museum-of-modern-art-futurism-bauhaus-typography-poster-number-2-food-text-monochrome-thumbnail.png" />
+      <ImageSlider.Slide src="https://www.accobrands.com.au/pa_images/Detail/900408.jpg" />
+      <ImageSlider.Slide src="https://lh3.googleusercontent.com/Y2-c97PxIFWROK24rVVGaIzF2lngG_8iXYZgNYvq7jb-7_-LLzmQP_o1fuxAw9xSovXwc8F5giWzUAJ75-YW9lNiH79XAAteSLPXDaY=s120" />
+      <ImageSlider.Slide src="https://ukrpublic.com/images/2021/09/16/73378738_large.jpg" />
+      <ImageSlider.Slide src="https://otvet.imgsmail.ru/download/875a8375f91de049494d6073098e8a2f_87df8602575cc25864a612668335e50b.png" />
+    </ImageSlider>
+  );
 }
 
-export default App
+export default App;
