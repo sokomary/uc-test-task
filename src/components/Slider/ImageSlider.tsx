@@ -99,7 +99,7 @@ const ImageSlider: FC<Props> & ImageSliderExtensions = (props) => {
         isForward ? (j -= 1) : (j += 1)
       ) {
         setCurrentImgIdx(j);
-        await new Promise((resolve) => setTimeout(resolve, 40 * j));
+        await new Promise((resolve) => setTimeout(resolve, 40));
       }
     } else {
       setCurrentImgIdx(i);
@@ -107,76 +107,71 @@ const ImageSlider: FC<Props> & ImageSliderExtensions = (props) => {
   };
 
   return (
-    <Container vertical center gap={40}>
-      <Container vertical gap={10} center>
-        <Container center gap={10}>
-          {children.length > 1 && (
-            <Button
-              disabled={!(currentImgIdx > 0 || props.loop)}
-              onClick={setPrevImg}
-            >
-              &lt;
-            </Button>
-          )}
-          <ImageSet
-            tabIndex={-1}
-            ref={imageSetRef}
-            onKeyDown={(e) => handleKeyDown(e.key)}
-            onTouchStart={(e) => setTouchStart(e.targetTouches[0].clientX)}
-            onTouchMove={(e) => setTouchEnd(e.targetTouches[0].clientX)}
-            onTouchEnd={handleSwipe}
+    <Container vertical gap={10} center fullSize>
+      <Container center gap={10} fullSize>
+        {children.length > 1 && (
+          <Button
+            disabled={!(currentImgIdx > 0 || props.loop)}
+            onClick={setPrevImg}
           >
-            {children.length > 1 && (
-              <Image
-                style={{ transform: "translateX(-400px)" }}
-                key={prevImgIndex}
-              >
-                {children[prevImgIndex]}
-              </Image>
-            )}
-            <Image
-              onMouseEnter={() => {
-                if (props.autoPlay) {
-                  stopAutoPlay();
-                }
-              }}
-              onMouseLeave={() => {
-                if (props.autoPlay) {
-                  startAutoPlay();
-                }
-              }}
-              key={currentImgIdx}
-            >
-              {children[currentImgIdx]}
-            </Image>
-            {children.length > 1 && (
-              <Image
-                style={{ transform: "translateX(400px)" }}
-                key={nextImgIndex}
-              >
-                {children[nextImgIndex]}
-              </Image>
-            )}
-          </ImageSet>
+            &lt;
+          </Button>
+        )}
+        <ImageSet
+          tabIndex={-1}
+          ref={imageSetRef}
+          onKeyDown={(e) => handleKeyDown(e.key)}
+          onTouchStart={(e) => setTouchStart(e.targetTouches[0].clientX)}
+          onTouchMove={(e) => setTouchEnd(e.targetTouches[0].clientX)}
+          onTouchEnd={handleSwipe}
+        >
           {children.length > 1 && (
-            <Button
-              disabled={!(currentImgIdx < children.length - 1 || props.loop)}
-              onClick={setNextImg}
+            <Image
+              style={{ transform: "translateX(-100%)" }}
+              key={prevImgIndex}
             >
-              &gt;
-            </Button>
+              {children[prevImgIndex]}
+            </Image>
           )}
-        </Container>
-        <Container gap={10}>
-          {children.map((_, i) => (
-            <Dot
-              onClick={() => handleDotClick(i)}
-              key={i}
-              accent={i === currentImgIdx}
-            />
-          ))}
-        </Container>
+          <Image
+            onMouseEnter={() => {
+              if (props.autoPlay) {
+                stopAutoPlay();
+              }
+            }}
+            onMouseLeave={() => {
+              if (props.autoPlay) {
+                startAutoPlay();
+              }
+            }}
+            key={currentImgIdx}
+          >
+            {children[currentImgIdx]}
+          </Image>
+          {children.length > 1 && (
+            <Image style={{ transform: "translateX(100%)" }} key={nextImgIndex}>
+              {children[nextImgIndex]}
+            </Image>
+          )}
+        </ImageSet>
+        {children.length > 1 && (
+          <Button
+            disabled={!(currentImgIdx < children.length - 1 || props.loop)}
+            onClick={setNextImg}
+          >
+            &gt;
+          </Button>
+        )}
       </Container>
+      <DotsContainer gap={10}>
+        {children.map((_, i) => (
+          <Dot
+            onClick={() => handleDotClick(i)}
+            key={i}
+            accent={i === currentImgIdx}
+          />
+        ))}
+      </DotsContainer>
     </Container>
   );
 };
@@ -188,10 +183,14 @@ const Slide: FC<SlideProps> = (props) => {
   return <SlideImage src={props.src} />;
 };
 
+const DotsContainer = styled(Container)`
+  padding: 20px 0;
+`;
+
 const ImageSet = styled.div`
   position: relative;
-  width: 250px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -202,6 +201,7 @@ const Image = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  flex-shrink: 0;
   transition: transform 0.4s ease-in-out;
 `;
 
