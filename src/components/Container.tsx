@@ -13,6 +13,7 @@ interface Props extends PropsWithChildren {
   vertical?: boolean;
   gap?: number;
   center?: boolean;
+  fullSize?: boolean;
   onClick?: MouseEventHandler;
   onKeyDown?: KeyboardEventHandler;
 }
@@ -25,6 +26,7 @@ const Container: FC<Props> = (props) => (
     gap={props.gap}
     center={props.center}
     onClick={props.onClick}
+    fullSize={props.fullSize}
     onKeyDown={props.onKeyDown}
   >
     {props.children}
@@ -32,7 +34,8 @@ const Container: FC<Props> = (props) => (
 );
 
 const StyledContainer = styled.div<Props>`
-  width: fit-content;
+  ${({ fullSize }) =>
+    fullSize ? "width: 100%; height: 100%" : "width: fit-content;"};
 
   display: flex;
   flex-direction: ${(props) => (props.vertical ? "column" : "row")};
