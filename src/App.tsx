@@ -3,9 +3,10 @@ import { ImageSlider } from "./components/Slider/ImageSlider";
 import styled from "styled-components";
 
 function App() {
+  const height = window.innerHeight;
   return (
-    <StyledApp>
-      <ImageSlider loop autoPlay>
+    <StyledApp height={height}>
+      <ImageSlider loop>
         <ImageSlider.Slide src="https://image.isu.pub/200108033723-3ca2097884c8efacf45a0f28f2db9aff/jpg/page_109.jpg" />
         <ImageSlider.Slide src="https://w7.pngwing.com/pngs/31/751/png-transparent-museum-of-modern-art-futurism-bauhaus-typography-poster-number-2-food-text-monochrome-thumbnail.png" />
         <ImageSlider.Slide src="https://www.accobrands.com.au/pa_images/Detail/900408.jpg" />
@@ -17,9 +18,9 @@ function App() {
   );
 }
 
-const StyledApp = styled.div`
+const StyledApp = styled.div<{ height: number }>`
   width: 100vw;
-  height: 100vh;
+  height: ${({ height }) => `${height}px`};
 `;
 
 export default App;
